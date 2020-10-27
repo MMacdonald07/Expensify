@@ -5,7 +5,7 @@ import { setTextFilter, sortByAmount, sortByDate, setStartDate, setEndDate } fro
 
 export class ExpenseListFilters extends React.Component {
 	state = {
-		calendarFocused: null,
+		calendarFocused: null
 	};
 	onDatesChange = ({ startDate, endDate }) => {
 		this.props.setStartDate(startDate);
@@ -26,23 +26,37 @@ export class ExpenseListFilters extends React.Component {
 	};
 	render() {
 		return (
-			<div>
-				<input type='text' value={this.props.filters.text} onChange={this.onTextChange} />
-				<select value={this.props.filters.sortBy} onChange={this.onSortChange}>
-					<option value='date'>Date</option>
-					<option value='amount'>Amount</option>
-				</select>
-				<DateRangePicker
-					displayFormat={'DD/MM/YYYY'}
-					startDate={this.props.filters.startDate}
-					endDate={this.props.filters.endDate}
-					numberOfMonths={1}
-					isOutsideRange={() => false}
-					onDatesChange={this.onDatesChange}
-					focusedInput={this.state.calendarFocused}
-					onFocusChange={this.onFocusChange}
-					showClearDates={true}
-				/>
+			<div className='content-container'>
+				<div className='input-group'>
+					<div className='input-group__item'>
+						<input
+							type='text'
+							className='text-input'
+							placeholder='Search Expenses...'
+							value={this.props.filters.text}
+							onChange={this.onTextChange}
+						/>
+					</div>
+					<div className='input-group__item'>
+						<select className='select' value={this.props.filters.sortBy} onChange={this.onSortChange}>
+							<option value='date'>Date</option>
+							<option value='amount'>Amount</option>
+						</select>
+					</div>
+					<div className='input-group__item'>
+						<DateRangePicker
+							displayFormat={'DD/MM/YYYY'}
+							startDate={this.props.filters.startDate}
+							endDate={this.props.filters.endDate}
+							numberOfMonths={1}
+							isOutsideRange={() => false}
+							onDatesChange={this.onDatesChange}
+							focusedInput={this.state.calendarFocused}
+							onFocusChange={this.onFocusChange}
+							showClearDates={true}
+						/>
+					</div>
+				</div>
 			</div>
 		);
 	}
@@ -55,7 +69,7 @@ const mapDispatchToProps = (dispatch) => ({
 	sortByDate: () => dispatch(sortByDate()),
 	sortByAmount: () => dispatch(sortByAmount()),
 	setStartDate: (startDate) => dispatch(setStartDate(startDate)),
-	setEndDate: (endDate) => dispatch(setEndDate(endDate)),
+	setEndDate: (endDate) => dispatch(setEndDate(endDate))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpenseListFilters);
